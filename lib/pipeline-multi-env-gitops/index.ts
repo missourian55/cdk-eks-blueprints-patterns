@@ -72,7 +72,7 @@ export default class PipelineMultiEnvGitops {
                     * @see https://docs.aws.amazon.com/codepipeline/latest/userguide/GitHub-create-personal-token-CLI.html`);
         }
 
-        const clusterVersion = eks.KubernetesVersion.V1_21;
+        const clusterVersion = eks.KubernetesVersion.V1_25;
 
         /* eslint-disable */
         const blueMNG = new blueprints.MngClusterProvider({
@@ -126,14 +126,14 @@ export default class PipelineMultiEnvGitops {
             );
 
         // Argo configuration per environment
-        const devArgoAddonConfig = createArgoAddonConfig('dev', 'git@github.com:aws-samples/eks-blueprints-workloads.git');
-        const testArgoAddonConfig = createArgoAddonConfig('test', 'git@github.com:aws-samples/eks-blueprints-workloads.git');
-        const prodArgoAddonConfig = createArgoAddonConfig('prod', 'git@github.com:aws-samples/eks-blueprints-workloads.git');
+        const devArgoAddonConfig = createArgoAddonConfig('dev', 'git@github.com:missourian55/eks-blueprints-workloads.git');
+        const testArgoAddonConfig = createArgoAddonConfig('test', 'git@github.com:missourian55/eks-blueprints-workloads.git');
+        const prodArgoAddonConfig = createArgoAddonConfig('prod', 'git@github.com:missourian55/eks-blueprints-workloads.git');
 
         try {
 
             // const { gitOwner, gitRepositoryName } = await getRepositoryData();
-            const gitOwner = 'aws-samples';
+            const gitOwner = 'missourian55';
             const gitRepositoryName = 'cdk-eks-blueprints-patterns';
 
             blueprints.CodePipelineStack.builder()
@@ -233,6 +233,7 @@ function createArgoAddonConfig(environment: string, repoUrl: string): blueprints
                 sourceRepos: [
                     `git@github.com:${element.githubOrg}/${element.githubRepository}.git`,
                     `git@github.com:aws-samples/eks-blueprints-workloads.git`,
+                    `git@github.com:missourian55/eks-blueprints-workloads.git`,
                 ],
             }
         );
